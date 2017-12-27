@@ -17,9 +17,9 @@ namespace REST_PrivateProject
         #region STATIC LIST
         private static List<Catch> catches = new List<Catch>()
         {
-            new Catch(1,"Peter","Torsk",3.4,"Øresund",22),
-            new Catch(2,"Martin","Skalle",1.2,"Furesø",23),
-            new Catch(){Id=3,Navn = "Vibeke",Art="Ørred",Sted="Øresund",Uge=44,Vægt = 3.1}
+            new Catch(1,"Tas","Torsk",3.4,"Øresund",22),
+            new Catch(2,"Poul","Skalle",1.2,"Furesø",23),
+            new Catch(){Id=3,Navn = "Hans",Art="Ørred",Sted="Øresund",Uge=44,Vægt = 3.1}
 
         };
         #endregion
