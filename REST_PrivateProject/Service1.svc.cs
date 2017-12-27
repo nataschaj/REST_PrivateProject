@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -13,6 +14,12 @@ namespace REST_PrivateProject
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
+
+        private Model1 catchdb = new Model1();
+        private static string connectingString =
+               "Server=tcp:natascha.database.windows.net,1433;Initial Catalog=School;Persist Security Info=False;User ID=nataschajakobsen;Password=Roskilde4000;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+
 
         #region STATIC LIST
         private static List<Catch> catches = new List<Catch>()
@@ -77,6 +84,53 @@ namespace REST_PrivateProject
             }
 
             return null;
+        }
+        #endregion
+
+        #region GET DB
+        public List<Catchings> GetCatchesDB()
+        {
+            return catchdb.Catches.ToList();
+        }
+        #endregion
+
+        #region GET V2 DB
+        public List<Catchings> GetCatchesv2DB()
+        {
+            List<Catchings> liste = new List<Catchings>();
+            using (SqlConnection conn = new SqlConnection(connectingString))
+            {
+                conn.Open();
+                String sql = "SELECT * FROM Catch";
+                SqlCommand command = new SqlCommand(sql, conn);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Catchings c = new Catchings
+                    {
+                        Id = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Species = reader.GetString(2),
+                        Weigtht = reader.GetDecimal(3),
+                        Place = reader.GetString(4),
+                        Week = reader.GetInt32(5)
+                    };
+                    liste.Add(c);
+                }
+
+            }
+
+            return liste;
+        }
+        #endregion
+
+        #region GET BY ID DB
+        public Catchings GetOneCatchDB(string id)
+        {
+            int idint = Int32.Parse(id);
+            return catchdb.Catches.ToList().Find(c => c.Id == idint);
+            
         }
         #endregion
     }

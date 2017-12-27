@@ -13,7 +13,8 @@ namespace REST_PrivateProject
     [ServiceContract]
     public interface IService1
     {
-        #region GET
+
+        #region GET U.DB
         [OperationContract] //betyder at en metode definere operation/funktion. Kun metoder med en operationcontract vises i client
         [WebInvoke(
             Method = "GET",
@@ -23,7 +24,7 @@ namespace REST_PrivateProject
         List<Catch> GetCatches();
         #endregion
 
-        #region GET BY ID
+        #region GET BY ID U.DB
         [OperationContract]
         [WebInvoke(
                 Method = "GET",
@@ -33,7 +34,7 @@ namespace REST_PrivateProject
         Catch GetOneCatch(String id);
         #endregion
 
-        #region POST
+        #region POST U.DB
         [OperationContract]
         [WebInvoke(
                 Method = "POST",
@@ -44,7 +45,7 @@ namespace REST_PrivateProject
         void AddCatch(Catch newCatch);
         #endregion
 
-        #region DELETE
+        #region DELETE U.DB
         [OperationContract]
         [WebInvoke(
                 Method = "DELETE",
@@ -54,7 +55,7 @@ namespace REST_PrivateProject
         Catch DeleteCatch(int id);
         #endregion
 
-        #region PUT
+        #region PUT U.DB
         [OperationContract]
         [WebInvoke(
                 Method = "PUT",
@@ -65,6 +66,34 @@ namespace REST_PrivateProject
         Catch UpdateCatch(Catch myCatch);
         #endregion
 
+        #region GET DB
+        [OperationContract]
+        [WebInvoke(
+                Method = "GET",
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "catches")
+        ]
+        List<Catchings> GetCatchesDB();
+        #endregion
+
+        #region GET V2 DB
+        [OperationContract]
+        [WebInvoke(
+                Method = "GET",
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "catches2")
+        ]
+        List<Catchings> GetCatchesv2DB();
+        #endregion
+
+        #region GET BY ID DB
+        [WebInvoke(
+                Method = "GET",
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "catch/{id}")
+        ]
+        Catchings GetOneCatchDB(String id);
+        #endregion 
     }
 
 
